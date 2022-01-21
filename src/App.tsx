@@ -60,6 +60,7 @@ function App() {
   const [cardItems, dispatch] = useReducer(reducer, buildCards(10));
 
   const openCard = cardItems.find((item) => item.state === "isOpen");
+  const isClear = cardItems.every((card) => card.state === "isCorrect");
 
   const handleOpenCard = ({ id, value }: CardItem) => {
     // 待機中は操作を受け付けない
@@ -88,7 +89,15 @@ function App() {
 
   return (
     <div className="pt-20 min-h-screen bg-slate-800">
-      <Board className="m-auto ">
+      <p
+        className={`text-stone-100 text-6xl font-bold text-center ${
+          !isClear && "invisible"
+        } `}
+      >
+        Clear!!!
+      </p>
+
+      <Board className="m-auto mt-5 ">
         {cardItems.map((item) => (
           <Card
             key={item.id}
